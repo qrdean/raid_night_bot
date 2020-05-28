@@ -1,0 +1,33 @@
+{
+  "name": "raid_night",
+  "version": "0.1.0",
+  "description": "bot for raid night",
+  "main": "index.js",
+  "author": "qdean",
+  "license": "MIT",
+  "scripts": {
+    "run:dev": "node -r esm index.js",
+    "pretty": "prettier *.js utils/*.js commands/*.js mongo/models/*.js mongo/*.js --write",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": [
+      "prettier --write"
+    ]
+  },
+  "dependencies": {
+    "discord.js": "^11.6.4",
+    "esm": "^3.2.25",
+    "moment": "^2.26.0",
+    "moment-timezone": "^0.5.31",
+    "mongoose": "^5.9.16"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.1.0",
+    "prettier": "2.0.5"
+  }
+}
