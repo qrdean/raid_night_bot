@@ -49,7 +49,13 @@ export async function execute(message, params) {
     })
 }
 
-async function createEventMessage(message, eventName, eventMessage, eventTime, eventId) {
+async function createEventMessage(
+  message,
+  eventName,
+  eventMessage,
+  eventTime,
+  eventId
+) {
   const embed = new RichEmbed()
     .setTitle(`Event "${eventName}" Created`)
     .setAuthor(message.author.tag, message.author.displayAvatarURL)
