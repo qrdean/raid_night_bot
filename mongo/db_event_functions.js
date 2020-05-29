@@ -60,7 +60,7 @@ export function updateEvent(id, updateEventObject) {
 /**
  *
  * @param {Number} id
- * @param {Number[]} userIds
+ * @param {String[]} userIds
  * @returns {Promise<any>}
  */
 export function addUserIds(id, userIds) {

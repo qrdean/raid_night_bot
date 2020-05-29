@@ -7,6 +7,7 @@ import {
 } from '../utils/timeUtils'
 import { EventClass } from '../mongo/event_constructor'
 import { insertIntoEvent, addUserIds } from '../mongo/db_event_functions'
+import { checkUserRole, checkUserPermissions } from '../utils/permissionsUtils'
 
 const CHECKBOX = '✅'
 // set this at a top level of the bot
@@ -19,7 +20,23 @@ export const usage =
   'with "in", "at", "on" or "tomorrow" to make a time. Example: !schedule Rocket League at 5 PM on Friday'
 export const args = true
 export const cooldown = 5
+/**
+ *
+ * @param {Message} message
+ * @param {String[]} params
+ */
 export async function execute(message, params) {
+  const schedulePermissions = ['MANAGE_CHANNELS']
+  if (
+    !checkUserPermissions(
+      message.guild.member(message.author),
+      schedulePermissions
+    )
+  ) {
+    return message.reply(
+      ` you do not have permission to use the !${name} command`
+    )
+  }
   if (args.length === 0) {
     // No arguments passed
     return message.channel.send(
@@ -40,7 +57,7 @@ export async function execute(message, params) {
   insertIntoEvent(eventClass.toObject())
     .then((res) => {
       // SUCCESS
-      createEventMessage(message, eventName, eventMessage, eventTime, res._id)
+      createEventMessage(message, eventName, eventMessage, res._id)
     })
     .catch((err) => {
       // FAIL
@@ -49,13 +66,14 @@ export async function execute(message, params) {
     })
 }
 
-async function createEventMessage(
-  message,
-  eventName,
-  eventMessage,
-  eventTime,
-  eventId
-) {
+/**
+ *
+ * @param {Message} message
+ * @param {String} eventName
+ * @param {String} eventMessage
+ * @param {Number} eventId
+ */
+async function createEventMessage(message, eventName, eventMessage, eventId) {
   const embed = new RichEmbed()
     .setTitle(`Event "${eventName}" Created`)
     .setAuthor(message.author.tag, message.author.displayAvatarURL)
@@ -100,6 +118,15 @@ async function createEventMessage(
   }
 }
 
+/**
+ *
+ * @param {RichEmbed} embedMessage
+ * @param {RichEmbed} embedMessageToUser
+ * @param {Message} message
+ * @param {Collection<string, User>} users
+ * @param {any[]} currentAttendeeIds
+ * @param {Number} eventId
+ */
 function addUserToMessage(
   embedMessage,
   embedMessageToUser,
@@ -111,10 +138,12 @@ function addUserToMessage(
   if (embedMessage.fields) {
     embedMessage.fields = []
   }
+  console.log(users)
   const userList = users.filter(
     (user) => !user.bot && !currentAttendeeIds.includes(user.id)
   )
   const userIds = userList.map((userObj) => userObj.id)
+  console.log(userIds)
   const userNameList = userList.map((userObj) => userObj.username)
 
   currentAttendeeIds = currentAttendeeIds.concat(userIds)
@@ -137,6 +166,7 @@ function addUserToMessage(
 
 /**
  * Takes the parameters from the message creator and tries to figure it out
+ * @param {String[]} params
  */
 function scheduleParamsParser(params) {
   // a list of prepositions to find

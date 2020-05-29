@@ -100,6 +100,58 @@ export function handleTomorrowCase(time) {
 }
 
 /**
+ *
+ * @param {Date} currentEventTime
+ * @param {}
+ */
+export function handleUpdateCase(currentEventTime, data, type) {
+  const momentTime = momentTimezone(currentEventTime).clone()
+  const startTime = moment().clone().seconds(0)
+  if (type === 'time') {
+    if (data) {
+      // eslint-disable-next-line prefer-const
+      let [hour, minutes] = splitTime(data[0])
+      hour = data[1] ? getHourAmPm(hour, data[1]) : hour
+      momentTime.hour(hour).minutes(minutes)
+    }
+  } else if (type === 'date') {
+    if (data) {
+      const newDate = checkForDate(data)
+      if (newDate) {
+        // eslint-disable-next-line prefer-const
+        const [month, day] = newDate
+        momentTime.month(checkForMonthNum(month - 1)).date(day)
+      } else {
+        const weekdayNumber = checkForWeekday(data)
+        if (weekdayNumber < momentTime.day()) {
+          momentTime.day(weekdayNumber + 7)
+        } else if (
+          weekdayNumber === momentTime.day() &&
+          startTime.hour() > momentTime.hour()
+        ) {
+          momentTime.day(weekdayNumber + 7)
+        } else if (
+          weekdayNumber === momentTime.hour() &&
+          startTime.hour() === momentTime.hour() &&
+          startTime.minutes() > momentTime.minutes()
+        ) {
+          momentTime.day(weekdayNumber + 7)
+        } else if (
+          weekdayNumber === momentTime.hour() &&
+          startTime.hour() === momentTime.hour() &&
+          startTime.minutes() === momentTime.minutes()
+        ) {
+          momentTime.day(weekdayNumber + 7)
+        } else {
+          momentTime.day(weekdayNumber)
+        }
+      }
+    }
+  }
+  return momentTime
+}
+
+/**
  * Takes a moment event and then formats it for the Discord message
  * $time $zone on $Day, $Month $Day
  * @param {moment} momentTime

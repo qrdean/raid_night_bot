@@ -3,7 +3,7 @@
  * @param {Number} guildId
  * @param {String} eventName
  * @param {String} description
- * @param {Number[]} userIds
+ * @param {String[]} userIds
  * @param {Date} eventTimestamp
  */
 export class EventClass {
@@ -47,14 +47,14 @@ export class EventClass {
 
   /**
    *
-   * @param {Number[]} userIds
+   * @param {String[]} userIds
    */
   addUserIds(userIds) {
     this._userIds = this._userIds.concat(userIds)
   }
   /**
    *
-   * @param {Number} userId
+   * @param {String} userId
    */
   removeUserId(userId) {
     this._userIds = this._userIds.filter((id) => id !== userId)

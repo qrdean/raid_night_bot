@@ -7,7 +7,7 @@ const EventSchema = new Schema(
     guildId: Number,
     eventName: String,
     description: String,
-    userIds: [Number],
+    userIds: [String],
     eventTimestamp: Date,
   },
   {

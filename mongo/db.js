@@ -14,6 +14,7 @@ export function connectToDatabase() {
     .connect(mongodbConnection, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     })
     .then((db) => {
       isConnected = db.connections[0].readyState
