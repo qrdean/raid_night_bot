@@ -6,6 +6,12 @@ export const description =
 export const aliases = ['commands']
 export const usage = '[command name]'
 export const cooldown = 5
+
+/**
+ *
+ * @param {Message} message
+ * @param {String[]} args
+ */
 export function execute(message, args) {
   const { commands } = message.client
   const data = []

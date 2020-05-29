@@ -20,7 +20,8 @@
     "esm": "^3.2.25",
     "moment": "^2.26.0",
     "moment-timezone": "^0.5.31",
-    "mongoose": "^5.9.16"
+    "mongoose": "^5.9.16",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

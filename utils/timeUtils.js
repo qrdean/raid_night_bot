@@ -6,9 +6,9 @@ const DEFAULT_TIME_ZONE = 'America/Chicago'
 momentTimezone.tz.setDefault(DEFAULT_TIME_ZONE)
 
 /**
- * @param {number} number
- * @param {string} type
- * @param {string[]} time
+ * @param {Number} number
+ * @param {String} type
+ * @param {String[]} time
  */
 export function handleInCase(number, type, time) {
   type = timeShortHandFormatter(type)
@@ -25,8 +25,8 @@ export function handleInCase(number, type, time) {
 
 /**
  *
- * @param {string} date
- * @param {string[]} time
+ * @param {String} date
+ * @param {String[]} time
  */
 export function handleAtOnCase(date, time) {
   const momentTime = moment().clone().seconds(0)
@@ -85,7 +85,7 @@ export function handleAtOnCase(date, time) {
 
 /**
  *
- * @param {string[]} time
+ * @param {String[]} time
  */
 export function handleTomorrowCase(time) {
   const momentTime = moment().clone().seconds(0)
@@ -102,7 +102,8 @@ export function handleTomorrowCase(time) {
 /**
  *
  * @param {Date} currentEventTime
- * @param {}
+ * @param {String[] | String} data
+ * @param {String} type
  */
 export function handleUpdateCase(currentEventTime, data, type) {
   const momentTime = momentTimezone(currentEventTime).clone()
@@ -168,7 +169,7 @@ export function formatMomentToString(momentTime) {
 
 /**
  *
- * @param {string} time
+ * @param {String} time
  */
 function splitTime(time) {
   // eslint-disable-next-line prefer-const
@@ -181,8 +182,8 @@ function splitTime(time) {
 
 /**
  *
- * @param {number} hour
- * @param {string} type
+ * @param {Number} hour
+ * @param {String} type
  */
 function getHourAmPm(hour, type) {
   if (type && type.toLowerCase() === 'am') {
@@ -194,7 +195,7 @@ function getHourAmPm(hour, type) {
 
 /**
  * Takes a string and returns it in a format momentjs expects
- * @param {string} timeString
+ * @param {String} timeString
  */
 function timeShortHandFormatter(timeString) {
   if (
@@ -231,7 +232,7 @@ function timeShortHandFormatter(timeString) {
 
 /**
  *
- * @param {number} monthNum
+ * @param {Number} monthNum
  */
 function formatMonth(monthNum) {
   switch (monthNum) {
@@ -297,7 +298,7 @@ function formatMonth(monthNum) {
 
 /**
  *
- * @param {string} month
+ * @param {String} month
  */
 function checkForMonth(month) {
   switch (month.toLowerCase()) {
@@ -330,7 +331,7 @@ function checkForMonth(month) {
 
 /**
  *
- * @param {number} month
+ * @param {Number} month
  */
 function checkForMonthNum(month) {
   switch (month) {
@@ -363,7 +364,7 @@ function checkForMonthNum(month) {
 
 /**
  *
- * @param {number} date
+ * @param {Number} date
  */
 function getPostDateFix(date) {
   const dateString = date.toString()
@@ -384,7 +385,7 @@ function getTimeZoneAbbr() {
 
 /**
  * Checks for the date and splits it
- * @param {string} date
+ * @param {String} date
  */
 function checkForDate(date) {
   const seperators = ['/', '-', ' ']
@@ -399,7 +400,7 @@ function checkForDate(date) {
 
 /**
  *
- * @param {string} weekdayString
+ * @param {String} weekdayString
  */
 function checkForWeekday(weekdayString) {
   switch (weekdayString.toLowerCase()) {

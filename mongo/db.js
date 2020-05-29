@@ -1,15 +1,19 @@
 import mongoose from 'mongoose'
 import { mongodbConnection } from '../.config.json'
+import { logger } from '../utils/logger'
 mongoose.Promise = global.Promise
 let isConnected
 
+/**
+ *
+ */
 export function connectToDatabase() {
   if (isConnected) {
-    console.log('=> using existing database connection')
+    logger.info('=> using existing database connection')
     return Promise.resolve()
   }
 
-  console.log('=> using new database connection')
+  logger.info('=> using new database connection')
   return mongoose
     .connect(mongodbConnection, {
       useNewUrlParser: true,

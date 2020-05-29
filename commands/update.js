@@ -13,6 +13,7 @@ export const description =
 export const usage =
   'Moderators can edit the time, date and name of an event Keywords: time | date | name followed by the intended change'
 export const cooldown = 5
+
 /**
  *
  * @param {Message} message
@@ -97,7 +98,7 @@ async function updateParamParser(params) {
             }
           })
           .catch((err) => {
-            console.error(err)
+            logger.error(err)
             return null
           })
         break
@@ -116,7 +117,7 @@ async function updateParamParser(params) {
             }
           })
           .catch((err) => {
-            console.error(err)
+            logger.error(err)
             return null
           })
         break

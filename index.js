@@ -2,6 +2,7 @@ import { readdirSync } from 'fs'
 import { Client, Collection } from 'discord.js'
 import { prefix } from './config.json'
 import { token } from './.config.json'
+import { logger } from './utils/logger'
 
 const client = new Client()
 client.commands = new Collection()
@@ -17,7 +18,7 @@ commandFiles.map((file) => {
 })
 
 client.on('ready', () => {
-  console.log('Ready!')
+  logger.info('Ready!', { service: 'index.js' })
 })
 
 client.on('message', (message) => {
@@ -80,7 +81,7 @@ client.on('message', (message) => {
   try {
     command.execute(message, args)
   } catch (error) {
-    console.error(error)
+    logger.error(error)
     message.reply('there was an error trying to execute that command!')
   }
 })

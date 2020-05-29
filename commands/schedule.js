@@ -8,6 +8,7 @@ import {
 import { EventClass } from '../mongo/event_constructor'
 import { insertIntoEvent, addUserIds } from '../mongo/db_event_functions'
 import { checkUserRole, checkUserPermissions } from '../utils/permissionsUtils'
+import { logger } from '../utils/logger'
 
 const CHECKBOX = '✅'
 // set this at a top level of the bot
@@ -20,6 +21,7 @@ export const usage =
   'with "in", "at", "on" or "tomorrow" to make a time. Example: !schedule Rocket League at 5 PM on Friday'
 export const args = true
 export const cooldown = 5
+
 /**
  *
  * @param {Message} message
@@ -61,7 +63,7 @@ export async function execute(message, params) {
     })
     .catch((err) => {
       // FAIL
-      console.error(err)
+      logger.error(err)
       message.channel.send('An Error Occurred Creating the Event')
     })
 }
@@ -113,7 +115,7 @@ async function createEventMessage(message, eventName, eventMessage, eventId) {
         )
       }
     } catch (err) {
-      console.error(err)
+      logger.error(err)
     }
   }
 }
@@ -138,12 +140,11 @@ function addUserToMessage(
   if (embedMessage.fields) {
     embedMessage.fields = []
   }
-  console.log(users)
+
   const userList = users.filter(
     (user) => !user.bot && !currentAttendeeIds.includes(user.id)
   )
   const userIds = userList.map((userObj) => userObj.id)
-  console.log(userIds)
   const userNameList = userList.map((userObj) => userObj.username)
 
   currentAttendeeIds = currentAttendeeIds.concat(userIds)
@@ -160,7 +161,7 @@ function addUserToMessage(
       message.author.send(
         'An error occurred adding users to the Event. Please contact the Admin of Raid Bot'
       )
-      console.error(err)
+      logger.error(err)
     })
 }
 
@@ -323,7 +324,7 @@ function scheduleParamsParser(params) {
         return returnObject
       }
     default:
-      console.error('error no preps found')
+      logger.error('error no preps found')
       return null
       break
   }

@@ -1,8 +1,11 @@
 import { Message, RichEmbed } from 'discord.js'
 import { getEventsByGuildId } from '../mongo/db_event_functions'
+import { logger } from '../utils/logger'
+
 export const name = 'list'
 export const description = 'Sends the user a list of Events in this server'
 export const cooldown = 5
+
 /**
  *
  * @param {Message} message
@@ -14,7 +17,7 @@ export async function execute(message) {
       return message.author.send(formattedMessage)
     })
     .catch((err) => {
-      console.error(err)
+      logger.error(err)
     })
 }
 
@@ -38,8 +41,6 @@ function formatMessage(dbResponse, message) {
       const guildMembers = message.guild.members.filter((guildMember) => {
         return eventObject.userIds.includes(guildMember.user.id)
       })
-      const a = guildMembers.map((member) => member.user.username)
-      console.log(a)
       const userNames = guildMembers.map((member) => member.user.username)
       embed.addField('Attendees', userNames, false)
     }

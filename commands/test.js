@@ -13,6 +13,7 @@ import { checkUserRole } from '../utils/permissionsUtils'
 export const name = 'test'
 export const description = 'test mongodb'
 export const cooldown = 5
+
 /**
  *
  * @param {Message} message
