@@ -32,11 +32,13 @@ export async function execute(message, params) {
     )
   }
 
-  const eventName = await getEventById(params[0]).then((res) => {
-    return res.eventName
-  }).catch((err) => {
+  const eventName = await getEventById(params[0])
+    .then((res) => {
+      return res.eventName
+    })
+    .catch((err) => {
       logger.error(err)
-  })
+    })
 
   deleteEventById(params[0])
     .then((res) => {
