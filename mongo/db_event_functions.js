@@ -79,7 +79,7 @@ export function addUserIds(id, userIds) {
 export function deleteEventById(id) {
   return connectToDatabase().then(() => {
     const Event = EventModel
-    return Event.findById(id, null).remove().exec()
+    return Event.findById(id, null).deleteOne().exec()
   })
 }
 
@@ -92,7 +92,7 @@ export function deleteDeadEvents() {
     const older_than = moment().toDate()
     const Event = EventModel
     return Event.find({ eventTimestamp: { $lt: older_than } })
-      .remove()
+      .deleteMany()
       .exec()
   })
 }
