@@ -4,6 +4,8 @@ import { prefix } from './config.json'
 import { token } from './.config.json'
 import { logger } from './utils/logger'
 
+const CHANNEL_IDS = ['713105583485747230']
+
 const client = new Client()
 client.commands = new Collection()
 const cooldowns = new Collection()
@@ -23,9 +25,9 @@ client.on('ready', () => {
 
 client.on('message', (message) => {
   if (!message.content.startsWith(prefix) || message.author.bot) return
-  // const roleNames = message.guild.roles.map(role => {
-  //   role.name.toLowerCase();
-  // });
+
+  if (!CHANNEL_IDS.includes(message.channel.id)) return
+
   const args = message.content.slice(prefix.length).split(/ +/)
   const commandName = args.shift().toLowerCase()
 
