@@ -1,7 +1,0 @@
-2020-05-29 13:54:21 [32minfo[39m: 	Ready!
-2020-05-29 14:02:00 [32minfo[39m: 	Ready!
-{"message":"\tReady!","level":"\u001b[32minfo\u001b[39m","service":"user-service","timestamp":"2020-05-29 14:03:12"}
-2020-05-29 14:04:05 user-service [32minfo[39m: 	Ready!
-2020-05-29 14:04:31 index.js [32minfo[39m: 	Ready!
-2020-05-29 14:05:11 - index.js - [32minfo[39m: 	Ready!
-2020-05-29 14:06:12 - index.js - [31merror[39m: 	Ready!
