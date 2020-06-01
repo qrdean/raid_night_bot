@@ -4,7 +4,7 @@ import { prefix } from './config.json'
 import { token } from './.config.json'
 import { logger } from './utils/logger'
 
-const CHANNEL_IDS = ['713105583485747230']
+const CHANNEL_IDS = ['716847474450628658']
 
 const client = new Client()
 client.commands = new Collection()
